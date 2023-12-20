@@ -1,0 +1,64 @@
+{
+  "consumer": {
+    "name": "Consumer"
+  },
+  "messages": [
+    {
+      "contents": {
+        "$type": "PactNetAbstactMessages.Message, PactNetAbstactMessages",
+        "keyValuePairs": [
+          {
+            "$type": "PactNetAbstactMessages.DoubleKeyValuePair, PactNetAbstactMessages",
+            "doubleValue": 12.3,
+            "key": "SomeValue"
+          }
+        ]
+      },
+      "description": "Message",
+      "matchingRules": {
+        "body": {
+          "$.keyValuePairs": {
+            "combine": "AND",
+            "matchers": [
+              {
+                "match": "type",
+                "min": 1
+              }
+            ]
+          },
+          "$.keyValuePairs[*].doubleValue": {
+            "combine": "AND",
+            "matchers": [
+              {
+                "match": "decimal"
+              }
+            ]
+          },
+          "$.keyValuePairs[*].key": {
+            "combine": "AND",
+            "matchers": [
+              {
+                "match": "type"
+              }
+            ]
+          }
+        }
+      },
+      "metadata": {
+        "contentType": "application/json"
+      }
+    }
+  ],
+  "metadata": {
+    "pactRust": {
+      "ffi": "0.4.0",
+      "models": "1.0.4"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "Producer"
+  }
+}
